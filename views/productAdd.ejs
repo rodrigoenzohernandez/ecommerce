@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+  <link rel="stylesheet" href="/stylesheets/styleHeader.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <!-- <script src="/validations/valProduct.js"></script> -->
+  <script src="/js/mobileNavMenu.js"></script>
+  <script src="/js/subCatSelect.js"></script>
+  <title>Ferretería Hernandez</title>
+</head>
+
+<body>
+
+  <%- include('./partials/header') %>
+
+    <main id="productAdd">
+
+      <div class='msgBackend'>
+
+        <% if (typeof errors !='undefined' ) { %>
+          <ul>
+            <% for (let i=0; i<errors.length; i++){ %>
+              <li class='MsgList'>
+                <%=errors[i].msg %>
+              </li>
+              <% } %>
+          </ul>
+          <% } %>
+      </div>
+
+      <form action="/products/add" class="formProd" enctype="multipart/form-data" method="POST">
+        <% if (typeof msg=='undefined' ){ %>
+          <container class="datosGrales">
+
+            <h4 class="formTitles">Datos Generales</h4>
+
+            <div class="block1">
+
+              <input type="text" name="nomProd" id="nomProd" class="nombre" placeholder="Nombre Producto">
+              <div class="errMen" id="errProd"></div>
+
+              <select name="cat" id="cat">
+                <option value="categoria" selected>
+                  Categoria
+                </option>
+                <% for(let i=0; i<categorias.length; i++){%>
+                  <option value="<%= categorias[i].ID%>">
+                    <%=categorias[i].nombre%>
+                  </option>
+                  <% } %>
+              </select>
+              <div class="errMen" id="errCat"></div>
+
+              <select name="subCat" id="subCat">
+                <option value="subcat" selected>
+                  Subcategoria
+                </option>
+
+              </select>
+              <div class="errMen" id="errSubcat"></div>
+              <select name="marca" id="marca">
+                <option value="marca" selected>
+                  Marca
+                </option>
+                <% for(let k=0; k<marcas.length; k++){%>
+                  <option value="<%= marcas[k].ID%>">
+                    <%=marcas[k].nombre%>
+                  </option>
+                  <% } %>
+              </select>
+              <div class="errMen" id="errMar"></div>
+
+              <input type="text" name="mod" id="mod" class="modelo" placeholder="Modelo">
+              <div class="errMen" id="errMod"></div>
+
+              <container class="inLine">
+                <input type="number" name="cantidad" id="cantidad" class="cantidad" placeholder="Cantidad">
+                <select name="um" id="um">
+                  <option value="um" selected>
+                    UM
+                  </option>
+                  <% for(let l=0; l<unidadmedidas.length; l++){%>
+                    <option value="<%= unidadmedidas[l].ID%>">
+                      <%=unidadmedidas[l].nombre%>
+                    </option>
+                    <% } %>
+                </select>
+              </container>
+              <div class="errMen" id="errCant"></div>
+              <div class="errMen" id="errUM"></div>
+              <textarea name="descripcion" id="descripcion" class="descripcion" cols="30"
+                rows="10">Descripción</textarea>
+              <div class="errMen" id="errDesc"></div>
+
+              <label for"">Cargar imagen del producto</label>
+              <span class="imgProd">
+                <input type="file" name="imgProd" id="imgProd">
+                <div class="errMen" id="errImg"></div>
+              </span>
+              </label>
+            </div>
+          </container>
+
+          <container class="datosVs">
+
+            <h4 class="formTitles">Datos Varios</h4>
+
+            <div class="block1">
+
+              <select name="estado" id="estado" class="estado">
+                <option value="3">Estado</option>
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+              </select>
+              <div class="errMen" id="errEst"></div>
+              <container class="inLine">
+                <input type="number" name="precio" id="precio" class="prec" placeholder="Precio $">
+                <input type="number" name="descuento" id="descu" placeholder="Descuento %">
+              </container>
+              <div class="errMen" id="errPre"></div>
+              <div class="errMen" id="errDescu"></div>
+              <container class="inLine">
+                <input type="number" name="stock" id="stock" class="stock" placeholder="Stock">
+                <input type="number" name="stockMin" id="stockMin" class="stockM" placeholder="StockMin">
+                </select>
+              </container>
+              <div class="errMen" id="errStock"></div>
+              <div class="errMen" id="errStockMin"></div>
+              <div class="checkBox">
+                <div class="chkBox"><input type="checkbox" name="chkOferta" value="1"><span
+                    class="txtCheck">Oferta</span></div>
+                <div class="chkBox"><input type="checkbox" name="chkTemporada" value="1"><span class="txtCheck">Oferta
+                    de verano</span></div>
+                <div class="chkBox"><input type="checkbox" name="chkEnvio" value="1"><span class="txtCheck">Disponible
+                    Envío</span></div>
+              </div>
+
+              <select name="tempDest" id="tempDest">
+                <option>Temporada Destacado</option>
+              </select>
+            </div>
+          </container>
+
+          <container class="buttons">
+            <input class="btnAdd" type="submit" value="Crear Producto">
+            <input class="btnReset" type="reset" value="Cancelar">
+            <!-- <input class="btnAdd" type="button" role="link" onclick="window.location='/products/productsListProv'"
+                    value="Volver"> -->
+          </container>
+          <% } else { %>
+
+            <section class="mensajes-alta">
+              <p class="successMen">
+                <%= msg %>
+              </p>
+            </section>
+
+            <% } %>
+      </form>
+    </main>
+
+</body>
+
+</html>

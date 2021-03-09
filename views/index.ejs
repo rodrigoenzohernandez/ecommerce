@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="/stylesheets/styleHeader.css">
+  <link rel="stylesheet" href="/stylesheets/styleABMProd.css">
+  <link rel="stylesheet" href="/stylesheets/styleIndex.css">
+  <script src="/js/mobileNavMenu.js"></script>
+  <title>Ferretería Hernandez</title>
+</head>
+
+<body>
+
+  <!-- header -->
+  <%- include('./partials/header') %>
+
+    <main id="main-index">
+
+      <h2 class='destacados'>Destacados</h2>
+      <div class="productosContainer">
+        <% for (product of productos){ %>
+          <div class="cardContainter shadow1">
+            <div class="cardMainSectionContainer">
+              <a class="cardImgContainer" href="/products/detail/<%= product.ID %> ">
+                <% if (typeof product.imagenesproductos[0] !=='undefined' && product.imagenesproductos[0] !==null){ %>
+                  <img class="cardImg" src="/images/productos/<%= product.imagenesproductos[0].ruta %>"
+                    alt="<%= product.nombre %>">
+                  <%}else{%>
+                    <img class="cardImg" src="/images/defImage.jpg" alt="<%= product.nombre %>">
+                    <%}%>
+              </a>
+              <div class="cardPriceContainer">
+                <div class="priceCont">
+                  <span class="priceSymbol" itemprop="priceCurrency">$</span>
+                  <span class="price">
+                    <%= toThousand(product.precio) %>
+                  </span>
+                </div>
+
+
+                <form action="/productCart/addItem" method="post">
+                  <input type="number" min="1" class="cantidad" name="cantidad" id="cantidad" placeholder="cantidad">
+                  <input type="hidden" name="productID" value="<%= product.ID %>">
+                  <input class="btnAddCart" type="submit" value="Agregar al Carrito" class="">
+                </form>
+
+                <!--      <select name="cant" id="prodCant">
+          <option>Cantidad</option>
+        </select>
+        <input class="btnAddCart" type="submit" value="Agregar al Carrito" class=""> -->
+              </div>
+            </div>
+            <h3 class="prodTitle">
+              <%= slice(product.nombre, 30) %>
+            </h3>
+            <ul class="rating">
+              <li><i class="fas fa-star"></i></li>
+              <li><i class="fas fa-star"></i></li>
+              <li><i class="fas fa-star-half-alt"></i></li>
+            </ul>
+            <div class="desc">
+              <span class="desc">
+                <%= slice(product.descripcion, 90) %>
+              </span>
+            </div>
+          </div>
+          <% } %>
+      </div>
+
+      <h2>Categorías</h2>
+      <div class="categoriasContainer">
+
+        <% for (categoria of categorias){ %>
+          <div class="cardContainter shadow1">
+            <div class="cardMainSectionContainer-reduc">
+              <a class="cardImgContainer" href="<%= href %><%= categoria.ID %> ">
+                <img class="cardImg" src="/images/categorias/<%= categoria.ruta %>" alt="<%= categoria.nombre %>">
+              </a>
+            </div>
+            <h3 class="tituloCategoria">
+              <%= categoria.nombre %>
+            </h3>
+          </div>
+          <% } %>
+      </div>
+
+      <h2>Marcas</h2>
+      <div class="marcasContainer">
+        <% for (marca of marcas){ %>
+          <div class="cardContainter shadow1">
+            <div class="cardMainSectionContainer-reduc">
+              <a class="cardImgContainer" href="products/marcas/<%= marca.ID %>">
+                <img class="cardImg" src="/images/marcas/<%= marca.ruta %>" alt="<%= marca.nombre %>">
+              </a>
+            </div>
+            <h3 class="tituloCategoria">
+              <%= marca.nombre %>
+            </h3>
+          </div>
+          <% } %>
+      </div>
+
+    </main>
+
+    <%- include('./partials/footer') %>
+
+</body>
+
+</html>

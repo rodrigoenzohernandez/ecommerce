@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+  <script src="https://kit.fontawesome.com/1eb59cccb0.js" crossorigin="anonymous"></script>
+  <link href="/stylesheets/styleHeader.css" rel="stylesheet">
+  <link href="/stylesheets/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/styleIndex.css">
+  <script src="/js/mobileNavMenu.js"></script>
+  <title>Product detail</title>
+</head>
+
+<body>
+  <%- include('./partials/header') %>
+  <div id="detalleContainer">
+    <h1>Detalle de producto</h1>
+    <div class="fichaDelProducto">
+
+      <article class="imagen-producto">
+        <% if (typeof product.imagenesproductos[0] !== 'undefined' && product.imagenesproductos[0] !== null){ %>
+          <img src="/images/productos/<%= product.imagenesproductos[0].ruta %>" alt="<%= product.nombre %>">
+          <%}else{%>
+          <img src="/images/defImage.jpg" alt="<%= product.nombre %>">
+          <%}%> 
+      </article>
+
+      <form action="/productCart/addItem" method="post">
+
+
+      <div class="bloque-logico">
+        <div class="nombre-valoracion">
+          <article class="nombre-producto">
+            <h2><%= product.nombre %></h2>
+            <!-- <p>Valoración</p> -->
+<!--             <div class="valoracion">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div> -->
+          </article>
+        </div>
+
+        <article class="precio-cantidad">
+          <div class="precio">
+            <p>$<%= product.precio %></p>
+          </div>
+          <div class="cant">
+            <input type="number" class="cantidad" name="cantidad" id="" placeholder="cantidad">
+
+          </div>
+
+
+
+<!--           <div class="botonera-carrito">
+             <input type="button" class="boton-form" value="-">
+             <input type="number" class="cantidad" name="cantidad" id="" placeholder="cantidad">
+             <input type="button" class="boton-form" value="+">
+         </div> -->
+        </article>
+
+        <article class="descripcion-producto">
+          <p><%= product.descripcion %></p>
+        </article>
+
+        <article class="accion-producto">
+
+<!-- RODRI: LO SAQUE POR EL MOMENTO <button role="link" onclick="window.location='/'">Comprar</button>-->
+
+          
+            <input type="hidden" name="productID" value="<%= product.ID %>">
+            <button type="submit">Agregar al carrito</button>
+
+
+        </article>
+
+      </form>
+
+      </div>
+    </div>
+
+  </div>
+
+</body>
+<%- include('./partials/footer') %>
+
+</html>

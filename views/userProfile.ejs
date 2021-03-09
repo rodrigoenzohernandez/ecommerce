@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio Sesión</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap"
+        rel="stylesheet">
+    <link href="/stylesheets/styleHeader.css" rel="stylesheet">
+    <link href="/stylesheets/style.css" rel="stylesheet">
+    <link href="/stylesheets/styleIndex.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/1eb59cccb0.js" crossorigin="anonymous"></script>
+    <script src="/js/apiAvatar.js"></script>
+</head>
+
+<body>
+
+    <%- include('./partials/headerL') %>
+
+        <main id="profile">
+
+            <div class="profile">
+                <div class="avatar">
+
+                    <img class="avatarImg"
+                        src="https://ui-avatars.com/api/?name=<%= user.nombre %> <%= user.apellido %>&background=BF9A2B&color=FFEF5B"
+                        alt="avatar">
+                </div>
+
+                <div class="registerTitle">Perfil Usuario</div>
+
+                <div class="profileRow">
+
+                    <span class="prop">Nombre:</span>
+                    <span class="value">
+                        <%= user.nombre %>
+                    </span>
+                </div>
+
+                <div class="profileRow">
+
+                    <span class="prop">Apellido:</span>
+                    <span class="value">
+                        <%= user.apellido %>
+                    </span>
+                </div>
+
+                <div class="profileRow">
+
+                    <span class="prop">email:</span>
+                    <span class="value">
+                        <%= user.email %>
+                    </span>
+                </div>
+
+                <div class="api"></div>
+            </div>
+        </main>
+
+        <footer></footer>
+</body>
+
+</html>
