@@ -1,0 +1,64 @@
+/*****************/
+
+/**MEDIA QUERIES**/
+
+/*****************/
+
+/*?CELULAR M*/
+
+@media (min-width:375px) {
+  main h2 {
+    font-size: 1.75em;
+  }
+  main section article {
+    width: 155px;
+  }
+  main section article img {
+    margin: 7.75px auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  main section article p {
+    margin: 7.75px auto;
+    font-size: 0.8em;
+  }
+  /*FOOTER*/
+  .f1 {
+    font-size: 0.75em;
+  }
+  .f2 {
+    font-size: 0.50em;
+  }
+  .copy {
+    font-size: 0.25em;
+  }
+}
+
+/*CELULAR L*/
+
+@media (min-width:425px) {
+  main h2 {
+    font-size: 2em;
+  }
+  main section article {
+    width: 180px;
+  }
+  main section article img {
+    margin: 9px auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  main section article p {
+    margin: 9px auto;
+    font-size: 1em;
+  }
+  .f1 {
+    font-size: 1em;
+  }
+  .f2 {
+    font-size: 0.75em;
+  }
+  .copy {
+    font-size: 0.375em;
+  }
+}

@@ -1,0 +1,170 @@
+<!--RH: Primer avance estructura HTML semantico-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Product Cart</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap"
+        rel="stylesheet">
+    <link href="/stylesheets/styleHeader.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <!--     <link rel="stylesheet" href="/stylesheets/styleIndex.css">
+ -->
+
+</head>
+
+<body>
+    <%- include('./partials/header') %>
+        <div id="carrito">
+            <main id="main-carrito">
+                <%if (typeof mensaje !='undefined' ){%>
+
+                    <section class="mensajes-carrito">
+                        <p class="successMen">
+                            <%= mensaje%>
+                        </p>
+                    </section>
+
+                    <%}else{%>
+
+
+
+
+                        <% if (typeof carrito[0]=='undefined' && carrito[0]==null){ %>
+
+                            <section class="mensajes-carrito">
+
+                                <p class="errMen">
+                                    Aún no tenes un carrito creado.
+                                </p>
+                            </section>
+
+                            <%}else{%>
+
+
+                                <form action="/productCart/editItem" method="POST">
+
+
+                                    <section class="productos">
+
+                                        <% for (var i=0; i < carrito[0].items.length; i++){ %>
+
+                                            <article class="producto">
+
+                                                <div class="imagen-producto">
+
+
+                                                    <% if (typeof
+                                                        carrito[0].items[i].itemsDescription.imagenesproductos[0]
+                                                        !=='undefined' &&
+                                                        carrito[0].items[i].itemsDescription.imagenesproductos[0]
+                                                        !==null){ %>
+
+                                                        <img src="/images/productos/<%=carrito[0].items[i].itemsDescription.imagenesproductos[0].ruta%>"
+                                                            alt="<%= carrito[0].items[i].itemsDescription.nombre %>">
+
+                                                        <%}else{%>
+                                                            <img class="cardImg" src="/images/defImage.jpg"
+                                                                alt="<%= carrito[0].items[i].itemsDescription.nombre %>">
+                                                            <%}%>
+
+                                                </div>
+
+                                                <div class="info-producto">
+
+                                                    <div class="nombre">
+                                                        <p>
+                                                            <%= carrito[0].items[i].itemsDescription.nombre %>
+                                                        </p>
+                                                    </div>
+
+
+
+
+
+                                                    <!--                                                <form action="/productCart/removeItem" method="POST" class="botonera-carrito">
+ -->
+                                                    <!--<input type="button" class="boton-form" value="-">-->
+
+                                                    <article class="botonera-carrito">
+
+                                                        <input type="number" class="cantidad" name="cant" id="cant"
+                                                            placeholder="cantidad" style="text-align: center;"
+                                                            value="<%= carrito[0].items[i].cantidadCarritoProducto %>">
+
+                                                        <!-- <input type="button" class="boton-form" value="+">-->
+                                                        <input type="hidden" name="totalActual"
+                                                            value="<%= carrito[0].total %>">
+                                                        <input type="hidden" name="carritoID" value="<%= carrito[0].ID %>">
+                                                        <input type="hidden" name="itemID" id="itemID[]" value="<%= carrito[0].items[i].ID %>">
+
+                                                        <!--                                                     <input type="button" id="eliminar" name="eliminar" class="boton-form" style="width: auto; margin-left: auto; background-color: red;" value="Eliminar">
+ -->
+
+                                                    </article>
+                                                    <!--                                                  </form>
+ -->
+                                                    <div class="subtotal">
+                                                        <p>Subtotal: $<%= carrito[0].items[i].itemsDescription.precio * carrito[0].items[i].cantidadCarritoProducto%>
+                                                        </p>
+                                                    </div>
+
+                                                </div>
+
+                                            </article>
+
+                                            <% } %>
+
+                                    </section>
+
+                                    <section class="confirm">
+
+                                        <article class="total">
+                                            <p>TOTAL</p>
+                                            <p>$<%= carrito[0].total%>
+                                            </p>
+                                        </article>
+
+                                        <input type="hidden" name="carritoID" value="<%= carrito[0].ID%>">
+                                        <input type="submit" class="boton" value="Actualizar">
+
+                                </form>
+
+                                <form action="/productCart/confirm" method="POST" class="confirm-purchase">
+                                    <input type="hidden" name="carritoID" value="<%= carrito[0].ID %>">
+                                    <input type="submit" class="boton" value="Confirmar compra">
+                                </form>
+
+
+                                </article>
+
+                                </section>
+
+
+
+                                <%}%>
+
+
+                                    <%}%>
+
+
+
+            </main>
+
+            <!--                      <%- include('./partials/footer') %> 
+ -->
+
+        </div>
+
+        <%- include('./partials/footer') %>
+
+</body>
+
+</html>
