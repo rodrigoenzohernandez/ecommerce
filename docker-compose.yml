@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+    api:
+        container_name: ecommerce_api
+        image: node:lts-alpine
+        command: sh -c "npm install &&  npm start"
+        working_dir: /app
+        ports:
+            - '3000:3000'
+        volumes:
+            - .:/app
+        env_file:
+            - ./api.env
+    db:
+        container_name: ecommerce_db
+        image: mysql:5.7
+        env_file:
+            - ./db.env
+        volumes:
+            - ./data:/var/lib/mysql
+        expose:
+            - '3306'
+        # Refer to
+        # https://blog.unreal4u.com/2012/08/sobre-collation-y-charset-en-mysql/
+        command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_general_ci']
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        env_file:
+            - ./db.env
+        ports:
+            - '8080:80'
