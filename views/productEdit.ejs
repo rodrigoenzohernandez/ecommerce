@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+  <link rel="stylesheet" href="/stylesheets/styleHeader.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <!-- <script src="/validations/valProduct.js"></script> -->
+  <script src="/js/mobileNavMenu.js"></script>
+  <script src="/js/subCatSelect.js"></script>
+  <title>Ferretería Hernandez</title>
+</head>
+
+<body>
+
+  <%- include('./partials/header') %>
+
+    <main id="productAdd">
+
+      <div class='msgBackend'>
+        <% if (typeof errors !='undefined' ) { %>
+          <ul>
+            <% for (let i=0; i<errors.length; i++){ %>
+              <li class='MsgList'>
+                <%=errors[i].msg %>
+              </li>
+              <% } %>
+          </ul>
+          <% } %>
+      </div>
+
+      <form action="/products/edit/<%=producto.ID%>" class="formProd" enctype="multipart/form-data" method="POST">
+
+
+        <container class="datosGrales">
+
+          <h4 class="formTitles">Datos Generales</h4>
+
+          <div class="block1">
+
+            <input type="text" name="nomProd" id="nomProd" class="nombre" value="<%=producto.nombre%>">
+            <div class="errMen" id="errProd"></div>
+
+            <select name="cat" id="cat">
+              <% for(let i=0; i < categorias.length; i++){%>
+                <% if (categorias[i].ID==categoriaSelect) {%>
+                  <option value="<%= categorias[i].ID %>" selected>
+                    <%= categorias[i].nombre %>
+                  </option>
+                  <% } else { %>
+                    <option value="<%= categorias[i].ID %>">
+                      <%=categorias[i].nombre%>
+                    </option>
+                    <% } %>
+                      <% } %>
+            </select>
+
+            <div class="errMen" id="errCat"></div>
+
+            <select name="subCat" id="subCat">
+              <% for(let j=0; j<subcategorias.length; j++){%>
+                <% if(subcategorias[j].ID==producto.subCategoriaID){%>
+                  <option value="<%= subcategorias[j].ID %>" selected>
+                    <%= subcategorias[j].nombre %>
+                  </option>
+                  <% } else {%>
+                    <% if (subcategorias[j].categoriaID==categoriaSelect) {%>
+                      <option value="<%= subcategorias[j].ID %>">
+                        <%= subcategorias[j].nombre %>
+                      </option>
+                      <% } }%>
+                        <%}%>
+            </select>
+            <div class="errMen" id="errSubcat"></div>
+
+            <select name="marca" id="marca">
+              <% for(let k=0; k<marcas.length; k++){%>
+                <% if(marcas[k].ID==producto.marcaID){%>
+                  <option value="<%= marcas[k].ID %>" selected>
+                    <%= marcas[k].nombre %>
+                  </option>
+                  <% } else {%>
+                    <option value="<%= marcas[k].ID %>">
+                      <%= marcas[k].nombre %>
+                    </option>
+                    <% } %>
+                      <%}%>
+            </select>
+            <div class="errMen" id="errMar"></div>
+
+            <input type="text" name="mod" id="mod" class="modelo" value="<%=producto.modelo%>">
+            </select>
+            <div class="errMod"></div>
+
+            <container class="inLine">
+
+              <input type="number" name="cantidad" id="cantidad" class="cantidad" value="<%=producto.cantidad%>">
+
+              <select name="um" id="um">
+                <% for(let l=0; l<unidadmedidas.length; l++){%>
+                  <% if(unidadmedidas[l].ID==producto.unidadMedidaID){%>
+                    <option value="<%= unidadmedidas[l].ID%>" selected>
+                      <%=unidadmedidas[l].nombre%>
+                    </option>
+                    <%} else {%>
+                      <option value="<%= unidadmedidas[l].ID%>">
+                        <%=unidadmedidas[l].nombre%>
+                      </option>
+                      <%}%>
+                        <% } %>
+              </select>
+            </container>
+            <div class="errMen" id="errCant"></div>
+            <div class="errMen" id="errUM"></div>
+            <textarea name="descripcion" id="descripcion" class="descripcion" cols="30" rows="10"
+              value=""><%=producto.descripcion%></textarea>
+            <div class="errMen" id="errDesc"></div>
+          </div>
+        </container>
+
+        <container class="datosVs">
+
+          <h4 class="formTitles">Datos Varios</h4>
+
+          <div class="block1">
+            <select name="estado" id="estado" class="estado">
+              <% if(producto.estado==1){%>
+                <option value="3">Estado</option>
+                <option value="1" selected>Activo</option>
+                <option value="0">Inactivo</option>
+                <% } else {%>
+                  <option value="3">Estado</option>
+                  <option value="1">Activo</option>
+                  <option value="0" selected>Inactivo</option>
+                  <% } %>
+            </select>
+            <div class="errMen" id="errEst"></div>
+            <container class="inLine">
+              <label> Precio
+                <input type="number" name="precio" id="precio" class="prec" value="<%=producto.precio%>">
+              </label>
+              <label>Descuento
+                <input type="number" name="descuento" id="descu" value="<%=producto.descuento%>">
+              </label>
+            </container>
+            <div class="errMen" id="errPre"></div>
+            <div class="errMen" id="errDescu"></div>
+            <container class="inLine">
+              <label>Stock
+                <input type="number" name="stock" id="stock" class="stock" value="<%=producto.stock%>">
+              </label>
+              <label>Stock Mínimo
+                <input type="number" name="stockMin" id="stockMin" class="stockM" value="<%=producto.stockMinimo%>">
+              </label>
+            </container>
+            <div class="errMen" id="errStock"></div>
+            <div class="errMen" id="errStockMin"></div>
+
+            <div class="checkBox">
+              <%if (producto.destacado==1){%>
+                <div class="chkBox"><input type="checkbox" name="chkOferta" value="1" checked><span
+                    class="txtCheck">Oferta</span>
+                </div>
+                <% } else {%>
+                  <div class="chkBox"><input type="checkbox" name="chkOferta" value="1"><span
+                      class="txtCheck">Oferta</span>
+                  </div>
+                  <% } %>
+                    <%if (producto.temporada==1){%>
+                      <div class="chkBox"><input type="checkbox" name="chkTemporada" value="1" checked><span
+                          class="txtCheck">Oferta de verano</span></div>
+                      <%} else{%>
+                        <div class="chkBox"><input type="checkbox" name="chkTemporada" value="1"><span
+                            class="txtCheck">Oferta de
+                            verano</span></div>
+                        <%}%>
+                          <% if (producto.envio==1){%>
+                            <div class="chkBox"><input type="checkbox" name="chkEnvio" value="1" checked><span
+                                class="txtCheck">Disponible
+                                Envío</span></div>
+            </div>
+            <% } else {%>
+              <div class="chkBox"><input type="checkbox" name="chkEnvio" value="1"><span class="txtCheck">Disponible
+                  Envío</span></div>
+          </div>
+          <% } %>
+            </div>
+        </container>
+
+        <container class="imaProd">
+          <h4 class="formTitles">Imagen</h4>
+          <% for (let i=0; i<imagenes.length; i++){%>
+            <% if (imagenes[i].productoID==producto.ID){%>
+              <img src="/images/productos/<%=imagenes[i].ruta%>" alt="Imagen del producto">
+              <%i=imagenes.length}%>
+                <%}%>
+        </container>
+
+        <container class="buttons">
+          <input class="btnAdd" type="submit" value="Guardar Cambios">
+          <input class="btnReset" type="reset" value="Restablecer">
+        </container>
+      </form>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio Sesión</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap"
+        rel="stylesheet">
+    <link href="path/to/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/1eb59cccb0.js" crossorigin="anonymous"></script>
+    <link href="/stylesheets/styleHeader.css" rel="stylesheet">
+    <link href="/stylesheets/style.css" rel="stylesheet">
+    <link href="/stylesheets/styleIndex.css" rel="stylesheet">
+    <script src="/validations/valRegister.js"></script>
+</head>
+
+<body>
+
+    <%- include('./partials/headerL') %>
+
+        <main id="register">
+
+            <div class="register">
+
+                <div class="registerLogo">
+
+                    <img class="logoFH" src="/images/FHLogoV.svg" alt="Ferretería Hernandez">
+                </div>
+
+                <div class="registerTitle">Modificación de Usuario</div>
+
+                <% if (typeof msg !='undefined' && msg !=null) { %>
+                    <div class="msgO form" style="display: block">
+                        <%= msg.text %>
+                    </div>
+                    <% } %>
+
+                        <form action="/users/edit/<%= user.ID %>" class="registerForm" method="POST">
+
+                            <div class="grupo">
+
+                                <div class="registerInput">
+
+                                    <span class="material-icons">person</span>
+                                    <input type="text" name="nombre" id="nombre" class="registerName"
+                                        placeholder="Modifique su nombre..." value="<%= user.nombre %>" required>
+                                </div>
+
+                                <div class="name error"></div>
+                            </div>
+
+                            <div class="grupo">
+
+                                <div class="registerInput">
+
+                                    <span class="material-icons">person</span>
+                                    <input type="text" name="apellido" id="apellido" class="registerApe"
+                                        placeholder="Modifique su apellido..." value="<%= user.apellido %>" required>
+                                </div>
+                                <div class="ape error"></div>
+                            </div>
+
+                            <div class="grupo">
+
+                                <div class="registerInput readOnly">
+
+                                    <span class="material-icons">email</span>
+                                    <input type="email" name="email" id="email" class="registerEmail readOnly"
+                                        value="<%= user.email %>" readonly required>
+                                </div>
+                                <div class="email error"></div>
+                            </div>
+
+                            <div class="grupo">
+
+                                <div class="registerInput">
+
+                                    <span class="material-icons">lock</span>
+                                    <input type="password" name="psw" id="psw" class="registerPsw"
+                                        placeholder="Ingrese su contraseña..." required>
+                                </div>
+                                <div class="psw error"></div>
+                            </div>
+
+                            <button type="submit" class="registerBtn">Modificar</button>
+                        </form>
+
+                        <div class="forgot">
+
+                            <a href="/users/logout" class="olvideRegister">Cerrar Sesión</a>
+                        </div>
+            </div>
+        </main>
+
+        <footer></footer>
+</body>
+
+</html>
