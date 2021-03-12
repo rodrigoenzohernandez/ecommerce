@@ -1,5 +1,5 @@
 {
-  "name": "ferreteriahernandez",
+  "name": "ecommerce",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -23,6 +23,6 @@
     "sequelize": "^6.3.5"
   },
   "devDependencies": {
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.7"
   }
 }
