@@ -1,5 +1,5 @@
-const fs = require('fs');
-const file = fs.readFileSync('./data/productos.json', 'utf-8');
+// const fs = require('fs');
+// const file = fs.readFileSync('./data/productos.json', 'utf-8');
 //const products = JSON.parse(file);
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 const slice = (desc, long) => desc.slice(0, long);
