@@ -30,7 +30,13 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session( {secret: "buahahahaha"}));
+app.use(session( 
+  {    
+    saveUninitialized: true,
+    resave: true,
+    secret: "buahahahaha"
+  }
+  ));
 app.use(cors);
 
 app.use('/', indexRouter);
