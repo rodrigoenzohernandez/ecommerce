@@ -1,9 +1,9 @@
 module.exports = {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "ferreteriahernandez_db",
-    "host": "127.0.0.1",
+    "password": "123456",
+    "database": "ecommerce_db",
+    "host": "ecommerce_db",
     "dialect": "mysql"
   },
   "test": {
