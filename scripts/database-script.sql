@@ -17,11 +17,11 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `ferreteriahernandez_db`
+-- Base de datos: `ecommerce_database`
 --
-DROP DATABASE IF EXISTS `ferreteriahernandez_db`;
-CREATE DATABASE IF NOT EXISTS `ferreteriahernandez_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `ferreteriahernandez_db`;
+DROP DATABASE IF EXISTS `ecommerce_database`;
+CREATE DATABASE IF NOT EXISTS `ecommerce_database` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `ecommerce_database`;
 
 -- --------------------------------------------------------
 
