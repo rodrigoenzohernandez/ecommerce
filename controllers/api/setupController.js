@@ -7,8 +7,6 @@ const setupController = {
 
         db.sequelize.query('show tables')
             .then(data => {
-                setupService.setup();
-
                 const rowsQuantity = data[0].length;
                 if (rowsQuantity) {
                     return res.status(200).json({ setup: 'La base de datos tiene tablas' });
