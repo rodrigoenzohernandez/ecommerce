@@ -1,116 +1,34 @@
--- phpMyAdmin SQL Dump
--- version 5.0.3
--- https://www.phpmyadmin.net/
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 19-12-2020 a las 22:32:40
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.2.34
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de datos: `ecommerce_database`
---
-DROP DATABASE IF EXISTS `ecommerce_database`;
 CREATE DATABASE IF NOT EXISTS `ecommerce_database` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `ecommerce_database`;
 
--- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `carrito`
---
--- Creación: 23-11-2020 a las 15:43:01
--- Última actualización: 19-12-2020 a las 21:31:23
---
-
-DROP TABLE IF EXISTS `carrito`;
-CREATE TABLE `carrito` (
-  `ID` int(11) NOT NULL,
-  `usuarioID` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `carrito` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `usuarioID` int NOT NULL,
   `total` float NOT NULL,
-  `cantidad` int(11) NOT NULL,
   `fechaCompra` datetime NOT NULL,
   `fechaCreacion` datetime NOT NULL,
-  `estado` tinyint(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `estado` tinyint NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- RELACIONES PARA LA TABLA `carrito`:
---
 
---
--- Volcado de datos para la tabla `carrito`
---
+CREATE TABLE IF NOT EXISTS `carrito_producto` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `carritoID` int NOT NULL,
+  `productoID` int NOT NULL,
+  `cantidadCarritoProducto` int NOT NULL,
+  `preciocongelado` float NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `carrito` (`ID`, `usuarioID`, `total`, `cantidad`, `fechaCompra`, `fechaCreacion`, `estado`) VALUES
-(5, 109, 23300, 0, '2000-01-01 03:00:00', '2020-12-19 19:18:35', 1),
-(6, 120, 6000, 0, '2000-01-01 03:00:00', '2020-12-19 21:23:09', 1);
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `carrito_producto`
---
--- Creación: 23-11-2020 a las 15:43:01
--- Última actualización: 19-12-2020 a las 21:31:23
---
-
-DROP TABLE IF EXISTS `carrito_producto`;
-CREATE TABLE `carrito_producto` (
-  `ID` int(11) NOT NULL,
-  `carritoID` int(11) NOT NULL,
-  `productoID` int(11) NOT NULL,
-  `cantidadCarritoProducto` int(11) NOT NULL,
-  `preciocongelado` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELACIONES PARA LA TABLA `carrito_producto`:
---
-
---
--- Volcado de datos para la tabla `carrito_producto`
---
-
-INSERT INTO `carrito_producto` (`ID`, `carritoID`, `productoID`, `cantidadCarritoProducto`, `preciocongelado`) VALUES
-(11, 5, 1, 1, 1200),
-(12, 5, 15, 2, 800),
-(13, 5, 34, 1, 20500),
-(14, 6, 14, 1, 900),
-(15, 6, 5, 2, 2000),
-(16, 6, 27, 1, 1100);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `categoria`
---
--- Creación: 01-12-2020 a las 16:52:35
---
-
-DROP TABLE IF EXISTS `categoria`;
-CREATE TABLE `categoria` (
-  `ID` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `ruta` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELACIONES PARA LA TABLA `categoria`:
---
-
---
--- Volcado de datos para la tabla `categoria`
---
+CREATE TABLE IF NOT EXISTS `categoria` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `ruta` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `categoria` (`ID`, `nombre`, `ruta`) VALUES
 (1, 'Electricidad', 'electricidad.jpg'),
@@ -121,28 +39,13 @@ INSERT INTO `categoria` (`ID`, `nombre`, `ruta`) VALUES
 (6, 'Calefacción', 'gas.jpg'),
 (7, 'Pinturas', 'pintura.jpg');
 
--- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `imagen_producto`
---
--- Creación: 23-11-2020 a las 15:43:01
---
-
-DROP TABLE IF EXISTS `imagen_producto`;
-CREATE TABLE `imagen_producto` (
-  `ID` int(11) NOT NULL,
-  `productoID` int(11) NOT NULL,
-  `ruta` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELACIONES PARA LA TABLA `imagen_producto`:
---
-
---
--- Volcado de datos para la tabla `imagen_producto`
---
+CREATE TABLE IF NOT EXISTS `imagen_producto` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `productoID` int NOT NULL,
+  `ruta` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `imagen_producto` (`ID`, `productoID`, `ruta`) VALUES
 (1, 1, '1-antioxido.png'),
@@ -179,28 +82,12 @@ INSERT INTO `imagen_producto` (`ID`, `productoID`, `ruta`) VALUES
 (32, 24, 'Termo.jpeg'),
 (33, 34, '/imgProd-1608325972726.jpeg');
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `marca`
---
--- Creación: 23-11-2020 a las 15:43:01
---
-
-DROP TABLE IF EXISTS `marca`;
-CREATE TABLE `marca` (
-  `ID` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `ruta` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELACIONES PARA LA TABLA `marca`:
---
-
---
--- Volcado de datos para la tabla `marca`
---
+CREATE TABLE IF NOT EXISTS `marca` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `ruta` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `marca` (`ID`, `nombre`, `ruta`) VALUES
 (1, 'Cibel', 'cibel.jpg'),
@@ -213,44 +100,28 @@ INSERT INTO `marca` (`ID`, `nombre`, `ruta`) VALUES
 (8, 'bulit', 'bulit.jpg'),
 (9, 'Otras', 'Multi.jpeg');
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `producto`
---
--- Creación: 23-11-2020 a las 15:43:01
---
-
-DROP TABLE IF EXISTS `producto`;
-CREATE TABLE `producto` (
-  `ID` int(11) NOT NULL,
-  `subCategoriaID` int(11) DEFAULT NULL,
-  `marcaID` int(11) DEFAULT NULL,
-  `unidadMedidaID` int(11) DEFAULT NULL,
-  `nombre` varchar(50) DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `producto` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `subCategoriaID` int DEFAULT NULL,
+  `marcaID` int DEFAULT NULL,
+  `unidadMedidaID` int DEFAULT NULL,
+  `nombre` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `precio` float DEFAULT NULL,
-  `cantidad` int(5) DEFAULT NULL,
+  `cantidad` int DEFAULT NULL,
   `descripcion` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
-  `estado` tinyint(4) DEFAULT NULL,
-  `modelo` varchar(50) DEFAULT NULL,
-  `temporada` tinyint(4) DEFAULT NULL,
-  `destacado` tinyint(4) DEFAULT NULL,
-  `envio` tinyint(4) DEFAULT NULL,
-  `stock` int(11) DEFAULT NULL,
-  `stockMinimo` int(11) DEFAULT NULL,
-  `descuento` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELACIONES PARA LA TABLA `producto`:
---
-
---
--- Volcado de datos para la tabla `producto`
---
+  `estado` tinyint DEFAULT NULL,
+  `modelo` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `temporada` tinyint DEFAULT NULL,
+  `destacado` tinyint DEFAULT NULL,
+  `envio` tinyint DEFAULT NULL,
+  `stock` int DEFAULT NULL,
+  `stockMinimo` int DEFAULT NULL,
+  `descuento` int DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `producto` (`ID`, `subCategoriaID`, `marcaID`, `unidadMedidaID`, `nombre`, `precio`, `cantidad`, `descripcion`, `estado`, `modelo`, `temporada`, `destacado`, `envio`, `stock`, `stockMinimo`, `descuento`) VALUES
-(1, 3, 2, 1, 'Antióxido', 1200, 4, 'fondo sintético antióxido con excelente adherencia y buen poder anticorrosivo. Está elaborado con resinas sintéticas, pigmentos de color y anticorrosivos de características especiales, que proporciona', 1, 'AL01', 1, 1, 0, 1, 1, 0),
+(1, 3, 2, 1, 'Antióxido Premium', 1200, 4, 'fondo sintético antióxido con excelente adherencia y buen poder anticorrosivo. Está elaborado con resinas sintéticas, pigmentos de color y anticorrosivos de características especiales, que proporciona', 1, 'AL01', 1, 1, 0, 1, 1, 0),
 (2, 4, 2, 1, 'Barniz Alba', 2000, 4, 'Barniz Poliuretánico para Interiores Brillante. De gran dureza y resistencia a la abrasión y al uso diario. Excelente nivelación. Transparente, entonable con Tintas AkzoNobel para barnices hasta 60 cm', 1, '', 1, 0, 0, 5, 2, 0),
 (3, 4, 1, 1, 'Barniz CIBEL', 1800, 4, 'Producto con alto contenido de sólidos, resinas de alta calidad, ideal para decorar y proteger todo tipo de maderas, de ambientes exteriores o interiores. Presenta alta resistencia al sol, nieve y llu', 1, '', 1, 0, 0, 0, 0, 0),
 (4, 14, 4, 2, 'Bordeadora 500w', 20000, 1, 'Con la Bordeadora de Césped Eléctrica Tramontina AP1000T con Diámetro de Corte de 280 mm 1000 W 220 V, usted tendrá más agilidad en el momento de cortar el césped.\"', 0, '', 1, 1, 0, 0, 0, 0),
@@ -284,28 +155,12 @@ INSERT INTO `producto` (`ID`, `subCategoriaID`, `marcaID`, `unidadMedidaID`, `no
 (33, 2, 2, 1, 'Albalatex Latex Interior Blanco Mate', 5517, 10, 'Pintura al látex mate para interiores\r\nColor: Blanco\r\nAcabado: Mate\r\nSecado: Secado al tacto: 1 hora. Secado entre manos: 3 a 4 hs.\r\nCantidad de manos: 2 a 3\r\nAplicación: Pincel, rodillo o soplete', 0, 'Albalatex', 1, 1, 1, 100, 50, 0),
 (34, 13, 9, 2, 'Taladro percutor / atornillador', 20500, 1, 'Batería de 2.0Ah ION-LI 20v Max * - BRUSHLESS para todas las aplicaciones de fijación y perforación\r\n16 posiciones de Torque para fijación constante en madera, metal y plásticos\r\nCaja con engranajes m', 1, 'DCD796D2', 0, 1, 0, 5, 2, NULL);
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `subcategoria`
---
--- Creación: 23-11-2020 a las 15:43:01
---
-
-DROP TABLE IF EXISTS `subcategoria`;
-CREATE TABLE `subcategoria` (
-  `ID` int(11) NOT NULL,
-  `categoriaID` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELACIONES PARA LA TABLA `subcategoria`:
---
-
---
--- Volcado de datos para la tabla `subcategoria`
---
+CREATE TABLE IF NOT EXISTS `subcategoria` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `categoriaID` int NOT NULL,
+  `nombre` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `subcategoria` (`ID`, `categoriaID`, `nombre`) VALUES
 (1, 7, 'Diluyentes'),
@@ -343,27 +198,11 @@ INSERT INTO `subcategoria` (`ID`, `categoriaID`, `nombre`) VALUES
 (33, 6, 'Calefones'),
 (34, 6, 'Termotanques');
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `unidad_medida`
---
--- Creación: 23-11-2020 a las 15:43:01
---
-
-DROP TABLE IF EXISTS `unidad_medida`;
-CREATE TABLE `unidad_medida` (
-  `ID` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELACIONES PARA LA TABLA `unidad_medida`:
---
-
---
--- Volcado de datos para la tabla `unidad_medida`
---
+CREATE TABLE IF NOT EXISTS `unidad_medida` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `unidad_medida` (`ID`, `nombre`) VALUES
 (1, 'Litros'),
@@ -371,35 +210,18 @@ INSERT INTO `unidad_medida` (`ID`, `nombre`) VALUES
 (3, 'Metros'),
 (4, 'Kg.');
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuario`
---
--- Creación: 23-11-2020 a las 15:43:01
--- Última actualización: 19-12-2020 a las 19:10:22
---
-
-DROP TABLE IF EXISTS `usuario`;
-CREATE TABLE `usuario` (
-  `ID` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `apellido` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `telefono` varchar(50) DEFAULT NULL,
-  `admin` tinyint(4) NOT NULL,
-  `avatar` varchar(100) DEFAULT NULL,
-  `﻿usuarioID;nombre;apellido;email;password;telefono;admin;avatar` varchar(1024) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELACIONES PARA LA TABLA `usuario`:
---
-
---
--- Volcado de datos para la tabla `usuario`
---
+CREATE TABLE IF NOT EXISTS `usuario` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `apellido` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `telefono` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `admin` tinyint NOT NULL,
+  `avatar` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `﻿usuarioID;nombre;apellido;email;password;telefono;admin;avatar` varchar(1024) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `usuario` (`ID`, `nombre`, `apellido`, `email`, `password`, `telefono`, `admin`, `avatar`, `﻿usuarioID;nombre;apellido;email;password;telefono;admin;avatar`) VALUES
 (1, 'admin', 'admin', 'admin@fh.com', '$2b$10$fPQfjRIY9lVjklUy5E2yjOH8WsJnqhKgzT7XUD9YBJTO5/oINW6lC', NULL, 1, NULL, NULL),
@@ -407,124 +229,5 @@ INSERT INTO `usuario` (`ID`, `nombre`, `apellido`, `email`, `password`, `telefon
 (118, 'Juan Pablo', 'Crespi', 'juan@hotmail.com', '$2b$10$a7T55HuLqxsmzE./aws7wO8csvj4oHYYtoLg7zKKveMVJ2MX8Ftmy', NULL, 0, NULL, NULL),
 (120, 'Mariano', 'Zenarola', 'mariano@hotmail.com', '$2b$10$bowfq9I0G4ZzQ3ihr/XJ3uGvp5kcBYMlbUgTK9uJNy.HutxT6dwg.', NULL, 0, NULL, NULL),
 (121, 'Cecilia', 'Quesada', 'ceci@hotmail.com', '$2b$10$fGOpET1a91U27G8np4W2qOuFUexbRYgjrK4uvHF4B3xks9Ldp1VN2', NULL, 0, NULL, NULL),
-(122, 'Santiago', 'Gomez', 'santiago@gmail.com', '$2b$10$LtEUR5sk61rYmLptvXDqLOmrXL9.HpfW44pLP/kiPez4SlOzuF7LC', NULL, 0, NULL, NULL);
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `carrito`
---
-ALTER TABLE `carrito`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indices de la tabla `carrito_producto`
---
-ALTER TABLE `carrito_producto`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indices de la tabla `categoria`
---
-ALTER TABLE `categoria`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indices de la tabla `imagen_producto`
---
-ALTER TABLE `imagen_producto`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indices de la tabla `marca`
---
-ALTER TABLE `marca`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indices de la tabla `producto`
---
-ALTER TABLE `producto`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indices de la tabla `subcategoria`
---
-ALTER TABLE `subcategoria`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indices de la tabla `unidad_medida`
---
-ALTER TABLE `unidad_medida`
-  ADD PRIMARY KEY (`ID`);
-
---
--- Indices de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`ID`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `carrito`
---
-ALTER TABLE `carrito`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de la tabla `carrito_producto`
---
-ALTER TABLE `carrito_producto`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT de la tabla `categoria`
---
-ALTER TABLE `categoria`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT de la tabla `imagen_producto`
---
-ALTER TABLE `imagen_producto`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
-
---
--- AUTO_INCREMENT de la tabla `marca`
---
-ALTER TABLE `marca`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT de la tabla `producto`
---
-ALTER TABLE `producto`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
-
---
--- AUTO_INCREMENT de la tabla `subcategoria`
---
-ALTER TABLE `subcategoria`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
-
---
--- AUTO_INCREMENT de la tabla `unidad_medida`
---
-ALTER TABLE `unidad_medida`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+(122, 'Rodrigo', 'Hernandez', 'hernandez@eudaimonia.com.ar', '$2b$10$sYtEcryMvZT9HBc7YAohAO9WEztM5l6BfPQglMtdFbQ9K3JzYT2g2', NULL, 0, NULL, NULL),
+(123, 'Lucas', 'Hernandez', 'lucas@gmail.com', '$2b$10$ERggH4FZ9cqVyRSOyZ4jOeGp2RKuY7zj2jkPpajU8AfFrbX98CEdS', NULL, 0, NULL, NULL);

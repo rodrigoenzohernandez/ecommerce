@@ -4,6 +4,7 @@ const { Sequelize } = require('../database/models');
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 const slice = (desc, long) => desc.slice(0, long);
 const db = require("../database/models");
+var adminValue;
 
 const controller = {
 
@@ -71,7 +72,7 @@ const controller = {
 
             controller.msg.text = 'Usuario o contraseña incorrecto';
             controller.msg.type = 'E'
-            
+
             res.render('login', { msg: controller.msg });
           } else {
 
@@ -88,7 +89,7 @@ const controller = {
 
               controller.msg.text = 'Usuario o contraseña incorrecto';
               controller.msg.type = 'E'
-              
+
               res.render('login', { msg: controller.msg });
             }
           }
@@ -96,6 +97,7 @@ const controller = {
     } catch (error) { console.log(error) };
   },
   //--------------------------------------------------------------------POST-REGISTER
+  //TO DO: Esto tiene que estar en el controller de usuario.
   checkRegister: (req, res) => {
 
     let errors = validationResult(req);
@@ -105,7 +107,7 @@ const controller = {
       // Envio errores de Express Validator al front (De a uno)
       controller.msg.text = errors.errors[0].msg;
       controller.msg.type = 'E';
-      
+
       res.render('register', { msg: controller.msg });
     } else {
 
@@ -119,30 +121,48 @@ const controller = {
               // Envio error al front -> Usuario ya creado
               controller.msg.text = 'El usuario ' + req.body.email + ' ya se encuentra registrado';
               controller.msg.type = 'E';
-              
+
               res.render('register', { msg: controller.msg });
             } else {
 
               let pswE = bcrypt.hashSync(req.body.psw, 10);
 
-              //Creo usuario y lo mando al login a loguearse
-              try {
-                db.Usuarios.create({
+              //Si es el primer usuario a crear, lo hago admin.
 
-                  nombre: req.body.name,
-                  apellido: req.body.apellido,
-                  email: req.body.email,
-                  password: pswE,
-                  admin: 0
-                })
-                  .then((user) => {
+              db.Usuarios.count().then(resultado => {
+                if (resultado == 0) adminValue = 1
+                else adminValue = 0
 
-                    controller.msg.text = 'El usuario ' + user.nombre + ' ha sido registrado. Favor iniciar sesión. ';
-                    controller.msg.type = 'S';
-                    res.redirect('login');
-                  });
-              } catch (error) { console.log(error) };
+                //Creo usuario y lo mando al login a loguearse
+                try {
+                  console.log("adminValue")
+
+                  console.log(adminValue)
+
+                  db.Usuarios.create({
+
+                    nombre: req.body.name,
+                    apellido: req.body.apellido,
+                    email: req.body.email,
+                    password: pswE,
+                    admin: adminValue || 0
+                  })
+                    .then((user) => {
+
+                      controller.msg.text = 'El usuario ' + user.nombre + ' ha sido registrado. Favor iniciar sesión. ';
+                      controller.msg.type = 'S';
+                      res.redirect('login');
+                    });
+                } catch (error) { console.log(error) };
+
+
+              })
+
+
             }
+
+
+
           });
       } catch (error) { console.log(error) };
     }
