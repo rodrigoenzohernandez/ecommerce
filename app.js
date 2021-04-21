@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+//require routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var cartRouter = require('./routes/cart');
@@ -14,6 +15,9 @@ var apiCategoriasRouter = require('./routes/api/categorias');
 var apiProductosRouter = require('./routes/api/productos');
 var apiUsersRouter = require('./routes/api/users');
 var apiCartsRouter = require('./routes/api/carts');
+var setupRouter = require('./routes/api/setupRoutes');
+
+
 
 const session = require('express-session');
 const cors = require('./middlewares/cors');
@@ -49,6 +53,8 @@ app.use('/api/categorias', apiCategoriasRouter);
 app.use('/api/productos', apiProductosRouter);
 app.use('/api/users', apiUsersRouter);
 app.use('/api/carts', apiCartsRouter);
+app.use('/api/setup', setupRouter);
+
 
 
 // catch 404 and forward to error handler

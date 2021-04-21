@@ -14,7 +14,7 @@ module.exports = (sequelize, dataTypes) => {
         estado: dataTypes.BOOLEAN
     }
     let config = {
-        tableName: "Carrito",
+        tableName: "carrito",
         timestamps: false
     }
 

@@ -1,5 +1,4 @@
+data/
 node_modules/
 api.env
 db.env
-data
-data/

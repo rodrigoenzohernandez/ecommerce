@@ -14,7 +14,7 @@ services:
             - ./api.env
     db:
         container_name: ecommerce_db
-        image: mysql:5.7
+        image: mysql:latest
         env_file:
             - ./db.env
         volumes:
