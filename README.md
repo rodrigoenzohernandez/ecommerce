@@ -1,84 +1,85 @@
 # ecommerce
 
-Es un ecommerce para una ferretería, cuenta con los siguietes módulos:
+Is an ecommerce for a hardware store. It has the next modules:
+
 - Log In
 - Log Out
-- Creación de usuarios
-- CRUD de productos
-- Carrito (_Agregar productos al carrito, editar cantidad, eliminar productos del carrito_)
-- Confirmar compra
-- Listado de productos por categoría
-- Detalle del producto
-- Perfil del usuario
+- User's CRUD 
+- Product's CRUD
+- Cart's CRUD (_Add items to cart, modify quantity, delete items from cart_)
+- Confirm purchase
+- List of products by category
+- Product detal
+- User profile
 
-## Comenzando 🚀
-_Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
+## Get started 🚀
+_Follow this instructions to locally deploy the project_
 
-### Pre-requisitos 📋
+### Preconditions 📋
 
-* Tener instalado [NodeJS](https://nodejs.org/es/)
-* Tener instalado [Docker](https://www.docker.com/get-started)
-* Tener instalado [DockerCompose](https://docs.docker.com/compose/install/)
-
-
-### Instalación 🔧
+* Install [Docker](https://www.docker.com/get-started)
+* Install [DockerCompose](https://docs.docker.com/compose/install/)
 
 
-Clonar el proyecto
+### Installation 🔧
+
+
+Clone the repo
 ```
-git clone https://github.com/rodrigoenzohernandez/api-weather-web.git
-```
-
-Ingresar al directorio del proyecto:
-```
-cd api-weather-web
+git clone https://github.com/rodrigoenzohernandez/ecommerce.git
 ```
 
-Ubicarse en el branch de develop:
+Navigate to project directory
 ```
-git checkout develop
-```
-
-Instalar las dependencias:
-```
-npm install
+cd ecommerce
 ```
 
-Levantar el proyecto
+Create files to set the enviroment variables
+
+api.env
+
+_No variables yet_
+
+db.env
+
+```
+MYSQL_DATABASE=ecommerce_database
+MYSQL_ROOT_PASSWORD=any-password-you-want
+PMA_HOST_db
+``` 
+
+Local deploy
 ```
 docker-compose up
 ```
 
-Crear y popular con información de prueba la base de datos:
+Create and populate database with basic information
 ```
 POST http://localhost:3000/api/setup
 ```
 
-Crear un usuario desde la UI (_El primer usuario creado tendrá el rol de admin, el resto tendrán el rol de cliente_)
+Create a user (_The first user will have admin role, the rest of the users will have the client role_)
 ```
 http://localhost:3000/register
 ```
 
-Iniciar sesión
-```
-http://localhost:3000/login
-```
-
-## Rutas
+## Endpoints
 
 ### /api/setup
 
-Si no existe, crea las tablas de la base de datos y las popula con datos de prueba.
+If it doesn't exist, creates the database tables and populates them with basic test data.
 
 
-## Construido con 🛠️
+## Build with 🛠️
 
-* [NodeJS](https://nodejs.org/es/) - Entorno en tiempo de ejecución.
-* [EJS](https://ejs.co/) - Motor de plantillas.
-* [JavaScript](https://www.javascript.com/) - Lenguaje de programación.
-* [HTML](https://developer.mozilla.org/es/docs/Web/HTML) - Lenguaje de marcado de hipertexto.
-* [CSS](https://developer.mozilla.org/es/docs/Web/CSS) - Hojas de estilo en cascada 
-* [Express](https://expressjs.com/es/) - Backend Framework
-* [JSON](https://www.json.org/json-en.html) - Formato de texto para el intercambio de archivos
-* [npm](https://www.npmjs.com/) - Manejador de paquetes
-* [GitFlow](https://www.gitflow.com/) - Flujo de trabajo de git.
+* [NodeJS](https://nodejs.org/es/).
+* [EJS](https://ejs.co/)
+* [JavaScript](https://www.javascript.com/)
+* [HTML](https://developer.mozilla.org/es/docs/Web/HTML)
+* [CSS](https://developer.mozilla.org/es/docs/Web/CSS)
+* [Express](https://expressjs.com/es/)
+* [JSON](https://www.json.org/json-en.html)
+* [npm](https://www.npmjs.com/)
+* [GitFlow](https://www.gitflow.com/)
+* [Docker](https://www.docker.com/get-started)
+* [DockerCompose](https://docs.docker.com/compose/install/)
